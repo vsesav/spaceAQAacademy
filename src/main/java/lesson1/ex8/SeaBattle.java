@@ -32,7 +32,26 @@ public class SeaBattle<ship> {
         int x = rnd(0, 9);
         int y = rnd(0, 9);
 
+        if (horizontalVerification(x, y,shipSize)) {
+            horizontal(shipSize);
+        } else {
+            for (int i = 0; i < shipSize; i++) {
+                ground[y][x + i]  = " ■ ";
+            }
+        }
+    }
 
+
+
+
+    public void vertical(int x, int y, int shipSize) {}
+
+    public static int rnd(int min, int max) {
+        max -= min;
+        return (int) (Math.random() * ++max) + min;
+    }
+
+    private boolean horizontalVerification(int x, int y, int shipSize) {
         if ( (x + shipSize - 1 > 9)
 
                 || (x != 0 && ground[y][x - 1].equals(" ■ "))
@@ -42,47 +61,25 @@ public class SeaBattle<ship> {
                 || (x != 0 && (y < 9) && ground[y + 1][x - 1].equals(" ■ "))
                 || ((x + shipSize < 9) && y != 0 && ground[y - 1][x + shipSize].equals(" ■ "))
                 || ((x + shipSize < 9) && (y < 9) && ground[y + 1][x + shipSize].equals(" ■ "))) {
-            horizontal(shipSize);
 
-        }
+            return true;
 
-        for (int i = 0; i < shipSize; i++) {
-            if ( (ground[y][x + i].equals(" ■ "))
+        } else {
 
-                    || ((y < 9) && ground[y + 1][x + i].equals(" ■ "))
+            for (int i = 0; i < shipSize; i++) {
+                if ( (ground[y][x + i].equals(" ■ "))
 
-                    || (y != 0 &&  ground[y - 1][x + i].equals(" ■ "))) {
-                horizontal(shipSize);
-                break;
+                        || ((y < 9) && ground[y + 1][x + i].equals(" ■ "))
+
+                        || (y != 0 &&  ground[y - 1][x + i].equals(" ■ "))) {
+                    return true;
+
+                }
             }
+            return false;
         }
 
-        for (int i = 0; i < shipSize; i++) {
-            ground[y][x + i]  = " ■ ";
-        }
+
     }
-
-    public void vertical(int x, int y, int shipSize) {}
-
-    public static int rnd(int min, int max) {
-        max -= min;
-        return (int) (Math.random() * ++max) + min;
-    }
-
-    /*public void singleDeck() {
-        int installedDShips = 0;
-        int x;
-        int y;
-        while (installedDShips < 4) {
-            x = rnd(0, 9);
-            y = rnd(0, 9);
-
-            if (ground[x][y] != " ■ ") {
-                ground[x][y] = " ■ ";
-                installedDShips++;
-            }
-
-        }
-    }*/
 
 }

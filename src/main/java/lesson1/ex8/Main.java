@@ -5,8 +5,18 @@ public class Main {
         SeaBattle sea = new SeaBattle();
         sea.initialization(sea.ground);
 
+        sea.horizontal(1);
+        sea.horizontal(1);
+        sea.horizontal(1);
+        sea.horizontal(1);
+
         sea.horizontal(2);
+        sea.horizontal(2);
+        sea.horizontal(2);
+
         sea.horizontal(3);
+        sea.horizontal(3);
+
         sea.horizontal(4);
 
 
