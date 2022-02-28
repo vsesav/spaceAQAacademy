@@ -1,11 +1,32 @@
 package lesson1.ex8;
 
-public class SeaBattle<ship> {
+import java.util.Random;
+
+public class SeaBattle {
     String[][] ground = new String[10][10];
     String oneDeckOfTheShip = " ■ ";
 
+    public SeaBattle() {
+        initialization(ground);
 
-    public void initialization(String[][] array ) {
+        randomShipCreating(1);
+        randomShipCreating(1);
+        randomShipCreating(1);
+        randomShipCreating(1);
+
+        randomShipCreating(2);
+        randomShipCreating(2);
+        randomShipCreating(2);
+
+        randomShipCreating(3);
+        randomShipCreating(3);
+
+        randomShipCreating(4);
+
+    }
+
+    // Создание поля морского боя
+    private void initialization(String[][] array ) {
         for (int i = 0; i < array.length; i++) {
 
             for (int j = 0; j < array.length; j++) {
@@ -16,19 +37,21 @@ public class SeaBattle<ship> {
         }
     }
 
-    public void printArray(String[][] array ) {
-        for (int i = 0; i < array.length; i++) {
+    //  Вывод поля морского боя
+    public void printGround() {
+        for (int i = 0; i < ground.length; i++) {
 
-            for (int j = 0; j < array.length; j++) {
+            for (int j = 0; j < ground.length; j++) {
 
-                System.out.print(array[i][j]);
+                System.out.print(ground[i][j]);
             }
 
             System.out.println();
         }
     }
 
-    public void horizontal(int shipSize) {
+    // Рандомное добавление горизонтально расположенного коробля заданного размера
+    private void horizontal(int shipSize) {
         int x = rnd(0, 9);
         int y = rnd(0, 9);
 
@@ -41,16 +64,52 @@ public class SeaBattle<ship> {
         }
     }
 
+    // Рандомное добавление вертикально расположенного коробля заданного размера
+    private void vertical(int shipSize) {
+        int x = rnd(0, 9);
+        int y = rnd(0, 9);
 
-
-
-    public void vertical(int x, int y, int shipSize) {}
-
-    public static int rnd(int min, int max) {
-        max -= min;
-        return (int) (Math.random() * ++max) + min;
+        if (verticalVerification(x, y, shipSize)) {
+            vertical(shipSize);
+        } else {
+            for (int i = 0; i < shipSize; i++) {
+                ground[y + i][x]  = " ■ ";
+            }
+        }
     }
 
+
+    // Проверка возможности размещения вертикального корабля с заданными координатами и размером
+    private boolean verticalVerification(int x, int y, int shipSize) {
+        if ( (y + shipSize - 1 > 9)
+
+                || (y != 0 && ground[y - 1][x].equals(" ■ "))
+                || ((y + shipSize < 9) && (ground[y + shipSize][x].equals(" ■ ")))
+
+                || (x != 0 && y != 0 && ground[y - 1][x - 1].equals(" ■ "))
+                || (y != 0 && (x < 9) && ground[y - 1][x + 1].equals(" ■ "))
+                || ((y + shipSize < 10) && x != 0 && ground[y + shipSize][x - 1].equals(" ■ "))
+                || ((y + shipSize < 10) && (x < 9) && ground[y + shipSize][x + 1].equals(" ■ "))) {
+
+            return true;
+
+        } else {
+
+            for (int i = 0; i < shipSize; i++) {
+                if ( (ground[y + i][x].equals(" ■ "))
+
+                        || ((x < 9) && ground[y + i][x + 1].equals(" ■ "))
+
+                        || (x != 0 &&  ground[y + i][x - 1].equals(" ■ "))) {
+                    return true;
+
+                }
+            }
+            return false;
+        }
+    }
+    // x = 7   y = 5
+    // Проверка возможности размещения горизонтального корабля с заданными координатами и размером
     private boolean horizontalVerification(int x, int y, int shipSize) {
         if ( (x + shipSize - 1 > 9)
 
@@ -59,8 +118,8 @@ public class SeaBattle<ship> {
 
                 || (x != 0 && y != 0 && ground[y - 1][x - 1].equals(" ■ "))
                 || (x != 0 && (y < 9) && ground[y + 1][x - 1].equals(" ■ "))
-                || ((x + shipSize < 9) && y != 0 && ground[y - 1][x + shipSize].equals(" ■ "))
-                || ((x + shipSize < 9) && (y < 9) && ground[y + 1][x + shipSize].equals(" ■ "))) {
+                || ((x + shipSize < 10) && y != 0 && ground[y - 1][x + shipSize].equals(" ■ "))
+                || ((x + shipSize < 10) && (y < 9) && ground[y + 1][x + shipSize].equals(" ■ "))) {
 
             return true;
 
@@ -80,6 +139,24 @@ public class SeaBattle<ship> {
         }
 
 
+    }
+
+    // Создает корабль рандомного направления заданного размера
+    private void randomShipCreating(int shipSize) {
+        Random random = new Random();
+        if (random.nextBoolean()) {
+            vertical(shipSize);
+        } else {
+            horizontal(shipSize);
+        }
+
+
+    }
+
+    // Рандомайзер
+    public static int rnd(int min, int max) {
+        max -= min;
+        return (int) (Math.random() * ++max) + min;
     }
 
 }
