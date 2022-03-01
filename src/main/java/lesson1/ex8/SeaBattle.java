@@ -59,7 +59,7 @@ public class SeaBattle {
             horizontal(shipSize);
         } else {
             for (int i = 0; i < shipSize; i++) {
-                ground[y][x + i]  = " ■ ";
+                ground[y][x + i]  = oneDeckOfTheShip;
             }
         }
     }
@@ -73,7 +73,7 @@ public class SeaBattle {
             vertical(shipSize);
         } else {
             for (int i = 0; i < shipSize; i++) {
-                ground[y + i][x]  = " ■ ";
+                ground[y + i][x]  = oneDeckOfTheShip;
             }
         }
     }
@@ -83,24 +83,24 @@ public class SeaBattle {
     private boolean verticalVerification(int x, int y, int shipSize) {
         if ( (y + shipSize - 1 > 9)
 
-                || (y != 0 && ground[y - 1][x].equals(" ■ "))
-                || ((y + shipSize < 9) && (ground[y + shipSize][x].equals(" ■ ")))
+                || (y != 0 && ground[y - 1][x].equals(oneDeckOfTheShip))
+                || ((y + shipSize < 9) && (ground[y + shipSize][x].equals(oneDeckOfTheShip)))
 
-                || (x != 0 && y != 0 && ground[y - 1][x - 1].equals(" ■ "))
-                || (y != 0 && (x < 9) && ground[y - 1][x + 1].equals(" ■ "))
-                || ((y + shipSize < 10) && x != 0 && ground[y + shipSize][x - 1].equals(" ■ "))
-                || ((y + shipSize < 10) && (x < 9) && ground[y + shipSize][x + 1].equals(" ■ "))) {
+                || (x != 0 && y != 0 && ground[y - 1][x - 1].equals(oneDeckOfTheShip))
+                || (y != 0 && (x < 9) && ground[y - 1][x + 1].equals(oneDeckOfTheShip))
+                || ((y + shipSize < 10) && x != 0 && ground[y + shipSize][x - 1].equals(oneDeckOfTheShip))
+                || ((y + shipSize < 10) && (x < 9) && ground[y + shipSize][x + 1].equals(oneDeckOfTheShip))) {
 
             return true;
 
         } else {
 
             for (int i = 0; i < shipSize; i++) {
-                if ( (ground[y + i][x].equals(" ■ "))
+                if ( (ground[y + i][x].equals(oneDeckOfTheShip))
 
-                        || ((x < 9) && ground[y + i][x + 1].equals(" ■ "))
+                        || ((x < 9) && ground[y + i][x + 1].equals(oneDeckOfTheShip))
 
-                        || (x != 0 &&  ground[y + i][x - 1].equals(" ■ "))) {
+                        || (x != 0 &&  ground[y + i][x - 1].equals(oneDeckOfTheShip))) {
                     return true;
 
                 }
@@ -108,29 +108,29 @@ public class SeaBattle {
             return false;
         }
     }
-    // x = 7   y = 5
+
     // Проверка возможности размещения горизонтального корабля с заданными координатами и размером
     private boolean horizontalVerification(int x, int y, int shipSize) {
         if ( (x + shipSize - 1 > 9)
 
-                || (x != 0 && ground[y][x - 1].equals(" ■ "))
-                || ((x + shipSize < 9) && (ground[y][x + shipSize].equals(" ■ ")))
+                || (x != 0 && ground[y][x - 1].equals(oneDeckOfTheShip))
+                || ((x + shipSize < 9) && (ground[y][x + shipSize].equals(oneDeckOfTheShip)))
 
-                || (x != 0 && y != 0 && ground[y - 1][x - 1].equals(" ■ "))
-                || (x != 0 && (y < 9) && ground[y + 1][x - 1].equals(" ■ "))
-                || ((x + shipSize < 10) && y != 0 && ground[y - 1][x + shipSize].equals(" ■ "))
-                || ((x + shipSize < 10) && (y < 9) && ground[y + 1][x + shipSize].equals(" ■ "))) {
+                || (x != 0 && y != 0 && ground[y - 1][x - 1].equals(oneDeckOfTheShip))
+                || (x != 0 && (y < 9) && ground[y + 1][x - 1].equals(oneDeckOfTheShip))
+                || ((x + shipSize < 10) && y != 0 && ground[y - 1][x + shipSize].equals(oneDeckOfTheShip))
+                || ((x + shipSize < 10) && (y < 9) && ground[y + 1][x + shipSize].equals(oneDeckOfTheShip))) {
 
             return true;
 
         } else {
 
             for (int i = 0; i < shipSize; i++) {
-                if ( (ground[y][x + i].equals(" ■ "))
+                if ( (ground[y][x + i].equals(oneDeckOfTheShip))
 
-                        || ((y < 9) && ground[y + 1][x + i].equals(" ■ "))
+                        || ((y < 9) && ground[y + 1][x + i].equals(oneDeckOfTheShip))
 
-                        || (y != 0 &&  ground[y - 1][x + i].equals(" ■ "))) {
+                        || (y != 0 &&  ground[y - 1][x + i].equals(oneDeckOfTheShip))) {
                     return true;
 
                 }
